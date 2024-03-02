@@ -1,0 +1,187 @@
+create table Client_master (
+Client_no varchar2(6) Check (Client_no LIKE 'C%') PRIMARY KEY,
+Name Varchar2(20) NOT NULL,
+City Varchar2(15),
+Pincode Number(8),
+State Varchar2(15),
+Bal_due Number(10,2));
+
+INSERT ALL
+INTO Client_master (Client_no,Name,City,Pincode,State,Bal_due) VALUES ('C00001','Iavn Bayross','Mumbai',400054,'Maharashtra',15000)
+INTO Client_master (Client_no,Name,City,Pincode,State,Bal_due) VALUES ('C00002','Mamta Mazumdar','Madras',780001,'Tamil Nadu',0)
+INTO Client_master (Client_no,Name,City,Pincode,State,Bal_due) VALUES ('C00003','Chhaya Bankar','Mumbai',400057,'Maharashtra',5000)
+INTO Client_master (Client_no,Name,City,Pincode,State,Bal_due) VALUES ('C00004','Ashwini Joshi','Bangalore',560001,'Karnataka',0)
+INTO Client_master (Client_no,Name,City,Pincode,State,Bal_due) VALUES ('C00005','Hansel Colaco','Mumbai',400060,'Maharashtra',2000)
+INTO Client_master (Client_no,Name,City,Pincode,State,Bal_due) VALUES ('C00006','Deepak Sharma','Mangalore',560050,'Karnataka',0)
+SELECT * FROM DUAL;
+
+
+create table Product_master (
+product_no Varchar2(6) Check (Product_no LIKE 'P%') PRIMARY KEY,
+Description Varchar2(15) NOT NULL,
+Profit_percent Number(4,2) NOT NULL,
+Unit_measure Varchar2(10) NOT NULL,
+Qty_on_hand Number(8) NOT NULL,
+Reorder_lvl Number(8) NOT NULL,
+Sell_price Number(8,2) check(Sell_price <> 0) NOT NULL,
+Cost_price Number(8,2) check(Cost_price <> 0) NOT NULL);
+
+INSERT ALL
+INTO Product_master (product_no,Description,Profit_percent,Unit_measure,Qty_on_hand,Reorder_lvl,Sell_price,Cost_price) VALUES ('P00001','T-shirt',5,'Piece',200,50,350,250)
+INTO Product_master (product_no,Description,Profit_percent,Unit_measure,Qty_on_hand,Reorder_lvl,Sell_price,Cost_price) VALUES ('P0345','Shirt',6,'Piece',150,50,500,350)
+INTO Product_master (product_no,Description,Profit_percent,Unit_measure,Qty_on_hand,Reorder_lvl,Sell_price,Cost_price) VALUES ('P06734','Cotton Jeans',5,'Piece',100,20,600,450)
+INTO Product_master (product_no,Description,Profit_percent,Unit_measure,Qty_on_hand,Reorder_lvl,Sell_price,Cost_price) VALUES ('P07865','Jeans',5,'Piece',100,20,750,500)
+INTO Product_master (product_no,Description,Profit_percent,Unit_measure,Qty_on_hand,Reorder_lvl,Sell_price,Cost_price) VALUES ('P07868','Trousers',2,'Piece',150,50,850,550)
+INTO Product_master (product_no,Description,Profit_percent,Unit_measure,Qty_on_hand,Reorder_lvl,Sell_price,Cost_price) VALUES ('P07885','PuM-Overs',2.5,'Piece',80,30,700,450)
+INTO Product_master (product_no,Description,Profit_percent,Unit_measure,Qty_on_hand,Reorder_lvl,Sell_price,Cost_price) VALUES ('P07965','Denim Shirts',4,'Piece',100,40,350,250)
+INTO Product_master (product_no,Description,Profit_percent,Unit_measure,Qty_on_hand,Reorder_lvl,Sell_price,Cost_price) VALUES ('P07975','Lyers Tops',5,'Piece',70,30,300,175)
+INTO Product_master (product_no,Description,Profit_percent,Unit_measure,Qty_on_hand,Reorder_lvl,Sell_price,Cost_price) VALUES ('P08865','Skirts',5,'Piece',75,30,450,300)
+SELECT * FROM DUAL;
+
+
+create table Salesman_master (
+Salesman_no Varchar2(6) check(Salesman_no LIKE 'S%') PRIMARY KEY,
+Salesman_name Varchar2(20) NOT NULL,
+Address1 Varchar2(10) NOT NULL,
+Address2 Varchar2(10),
+City Varchar2(20),
+Pincode Number(7),
+State Varchar2(20),
+Sal_amt Number(8,2) check(Sal_amt <> 0) NOT NULL,
+Tgt_to_get Number(6,2) check(Tgt_to_get <> 0) NOT NULL,
+Ytd_sales Number(6,2) NOT NULL,
+Remarks Varchar2(20));
+
+INSERT ALL
+INTO Salesman_master (Salesman_no,Salesman_name,Address1,Address2,City,Pincode,State,Sal_amt,Tgt_to_get,Ytd_sales,Remarks) VALUES ('S00001','Aman','A/14','Worli','Mumbai',400002,'Maharashtra',3000,100,50,'Good')
+INTO Salesman_master (Salesman_no,Salesman_name,Address1,Address2,City,Pincode,State,Sal_amt,Tgt_to_get,Ytd_sales,Remarks) VALUES ('S00002','Omkar','65','Nariman','Mumbai',400001,'Maharashtra',3000,200,100,'Good')
+INTO Salesman_master (Salesman_no,Salesman_name,Address1,Address2,City,Pincode,State,Sal_amt,Tgt_to_get,Ytd_sales,Remarks) VALUES ('S00003','Raj','P-7','Bandra','Mumbai',400032,'Maharashtra',3000,200,100,'Good')
+INTO Salesman_master (Salesman_no,Salesman_name,Address1,Address2,City,Pincode,State,Sal_amt,Tgt_to_get,Ytd_sales,Remarks) VALUES ('S00004','Asish','A/5','Juhu','Mumbai',400044,'Maharashtra',3500,200,150,'Good')
+SELECT * FROM DUAL;
+
+
+create table Sales_order (
+Order_no Varchar2(6) check(Order_no LIKE 'O%') PRIMARY KEY,
+Order_date Date,
+Client_no Varchar2(6) references Client_master(Client_no),
+Dely_address Varchar2(25),
+Salesman_no Varchar2(6) references Salesman_master(Salesman_no),
+Dely_type Char(1) default 'F' check(Dely_type in ('P' , 'F')),
+Billed_yn Char(1),
+Dely_date Date,
+constraint ck_date_correct check(Dely_date >= Order_date),
+Order_status Varchar2(10) check(Order_status IN ('In Process','Fulfilled','Backorder','Cancelled')));
+
+INSERT ALL 
+INTO Sales_order (Order_no,Order_date,Client_no,Dely_address,Salesman_no,Dely_type,Billed_yn,Dely_date,Order_status) VALUES ('O19001','12-JUN-2004','C00001',NULL,'S00001','F','N','20-JUL-2004','In Process')
+INTO Sales_order (Order_no,Order_date,Client_no,Dely_address,Salesman_no,Dely_type,Billed_yn,Dely_date,Order_status) VALUES ('O19002','5-JUN-2004','C00002',NULL,'S00002','P','N','27-JUN-2004','Cancelled')
+INTO Sales_order (Order_no,Order_date,Client_no,Dely_address,Salesman_no,Dely_type,Billed_yn,Dely_date,Order_status) VALUES ('O46865','18-FEB-2004','C00003',NULL,'S00003','F','Y','18-FEB-2004','Fulfilled')
+INTO Sales_order (Order_no,Order_date,Client_no,Dely_address,Salesman_no,Dely_type,Billed_yn,Dely_date,Order_status) VALUES ('O19003','03-APR-2004','C00001',NULL,'S00001','F','Y','07-APR-2004','Fulfilled')
+INTO Sales_order (Order_no,Order_date,Client_no,Dely_address,Salesman_no,Dely_type,Billed_yn,Dely_date,Order_status) VALUES ('O46866','20-MAY-2004','C00004',NULL,'S00002','P','N','22-MAY-2004','Cancelled')
+INTO Sales_order (Order_no,Order_date,Client_no,Dely_address,Salesman_no,Dely_type,Billed_yn,Dely_date,Order_status) VALUES ('O19008','24-MAY-2004','C00005',NULL,'S00004','F','N','26-JUL-2004','In Process')
+SELECT * FROM DUAL;
+
+
+create table Sales_order_details (
+Order_no Varchar2(6),
+FOREIGN KEY (Order_no) REFERENCES Sales_order(Order_no),
+Product_no varchar2(6),
+FOREIGN KEY (Product_no) REFERENCES Product_master(PRODUCT_NO),
+Oty_ordered Number(8),
+Qty_disp Number(8),
+Product_rate Number(10,2),
+PRIMARY KEY(Order_no,Product_no));
+
+INSERT ALL
+INTO Sales_order_details (Order_no,Product_no,Oty_ordered,Qty_disp,Product_rate) VALUES ('O19001','P00001',4,4,525)
+INTO Sales_order_details (Order_no,Product_no,Oty_ordered,Qty_disp,Product_rate) VALUES ('O19001','P07965',2,1,8400)
+INTO Sales_order_details (Order_no,Product_no,Oty_ordered,Qty_disp,Product_rate) VALUES ('O19001','P07885',2,1,5250)
+INTO Sales_order_details (Order_no,Product_no,Oty_ordered,Qty_disp,Product_rate) VALUES ('O19002','P00001',10,0,525)
+INTO Sales_order_details (Order_no,Product_no,Oty_ordered,Qty_disp,Product_rate) VALUES ('O46865','P07868',3,3,3150)
+INTO Sales_order_details (Order_no,Product_no,Oty_ordered,Qty_disp,Product_rate) VALUES ('O46865','P07885',3,1,5250)
+INTO Sales_order_details (Order_no,Product_no,Oty_ordered,Qty_disp,Product_rate) VALUES ('O46865','P00001',10,10,525)
+INTO Sales_order_details (Order_no,Product_no,Oty_ordered,Qty_disp,Product_rate) VALUES ('O46865','P0345',4,4,1050)
+INTO Sales_order_details (Order_no,Product_no,Oty_ordered,Qty_disp,Product_rate) VALUES ('O19003','P0345',2,2,1050)
+INTO Sales_order_details (Order_no,Product_no,Oty_ordered,Qty_disp,Product_rate) VALUES ('O19003','P06734',1,1,12000)
+INTO Sales_order_details (Order_no,Product_no,Oty_ordered,Qty_disp,Product_rate) VALUES ('O46866','P07965',1,0,8400)
+INTO Sales_order_details (Order_no,Product_no,Oty_ordered,Qty_disp,Product_rate) VALUES ('O46866','P07975',1,0,1050)
+INTO Sales_order_details (Order_no,Product_no,Oty_ordered,Qty_disp,Product_rate) VALUES ('O19008','P00001',10,5,525)
+INTO Sales_order_details (Order_no,Product_no,Oty_ordered,Qty_disp,Product_rate) VALUES ('O19008','P07975',5,3,1050)
+SELECT * FROM DUAL;
+
+
+Write necessary SQL queries for the following:
+
+1) Find the names of all clients having ‘a’ as the second letter in their names.
+select Name from Client_master where Name like '_a%';
+
+2) Find out the clients who stay in a city whose second letter is 'a'.
+ select * from Client_master where City like '_a%';
+
+3) Find the list of all clients who stay in 'Bombay' or 'Delhi'
+select * from Client_master where City in ('Mumbai' , 'Delhi');
+
+4) Print the list of clients whose bal_due is greater than value 10000.
+ select * from Client_master where Bal_due > 10000;
+
+5) Print the information from sales_order table for orders placed in the month of January.
+select * from Sales_order where Order_date between to_date('01-JAN-2004','DD-MON-YYYY') and to_date('31-JAN-2004','DD-MON-YYYY');
+                                                            or
+SELECT  *  FROM  sales_order  WHERE  EXTRACT(MONTH  FROM  Order_date)  = '01';
+
+6) Display the order information for client_no 'C00001' and 'C00002'.
+select * from Sales_order where Client_no in ('C00001','C00002');
+
+7) Find products whose selling price is greater than 2000 and less than or equal to 5000.
+select product_no, description from Product_master where Sell_price>2000 and Sell_price<=5000;
+
+8) Find products whose selling price is more than 1500. Calculate a new selling 
+price as original selling price * .15. Rename the new column in the above query as new_price.
+SELECT
+  Order_no,
+  Product_no,
+  Oty_ordered,
+  Qty_disp,
+  Product_rate,
+  Product_rate * 0.15 AS new_price
+FROM
+  Sales_order_details
+WHERE
+  Product_rate > 1500;
+
+
+9) List the names, city and state of clients who are not in the state of 'Maharashtra'.
+select Name,City,State from Client_master where State <> 'Maharashtra';
+
+10) Count the total number of orders. 
+select count(*) from Sales_order;
+
+11) Calculate the average price of all the products. 
+select AVG(Sell_price) AS Average_value from Product_master;
+
+12) Determine the maximum and minimum product prices. Rename the output as max_price and min_price respectively. 
+select MIN(Sell_price) AS min_price, MAX(Sell_price) AS max_price from Product_master;
+
+13) Count the number of products having price greater than or equal to 1500. 
+ select COUNT(*) AS count_of_items from Sales_order_details where Product_rate >= 1500;
+
+14) Find all the products whose qty_on_hand is less than reorder level.
+select Description from Product_master where Qty_on_hand < Reorder_lvl;
+
+15)Display the order number and day on which clients placed their order.
+select Order_no,Order_date from Sales_order;
+
+
+SELECT CONSTRAINT_NAME,CONSTRAINT_TYPE,TABLE_NAME FROM USER_CONSTRAINTS WHERE TABLE_NAME='SALES_ORDER';
+
+
+
+
+
+
+
+
+
+
+
+

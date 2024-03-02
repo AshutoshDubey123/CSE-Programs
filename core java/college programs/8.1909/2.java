@@ -1,0 +1,1 @@
+/*WAP in java to demonstrate the fact that using interfaces, multiple inheritance can be implemented in java*/

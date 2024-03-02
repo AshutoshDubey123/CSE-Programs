@@ -1,0 +1,68 @@
+Write Programs in java for performing string handlling in the following ways:
+
+i.    Create a srting  using an already defined character array.
+ii.   Extract a substring from an already defined string and store it in a string.
+iii.  Create a string by concatenating two or more previously defined strings.
+iv.   Compare two srings with each other and accordingly display some result if the two string are same return true else false (using equals).
+v.    Use the charAt() method to extract a particular character from a string.
+
+(i)
+// Define a character array
+char[] chars = {'H', 'e', 'l', 'l', 'o'};
+
+// Create a string from the character array
+String str = new String(chars);
+
+// Print the string
+System.out.println(str); // Hello
+
+(ii)
+
+
+// Define a string
+String str = "Hello, world!";
+
+// Extract a substring from index 7 to 12 (exclusive)
+String sub = str.substring(7, 12);
+
+// Print the substring
+System.out.println(sub); // world
+
+(iii)
+
+// Define two strings
+String str1 = "Hello";
+String str2 = "world";
+
+// Concatenate the two strings with a space in between
+String str3 = str1 + " " + str2;
+
+// Print the concatenated string
+System.out.println(str3); // Hello world
+
+
+(iv)
+
+// Define two strings
+String str1 = "Hello";
+String str2 = "hello";
+
+// Compare the two strings using equals method
+boolean result = str1.equals(str2);
+
+// Print the result
+System.out.println(result); // false
+
+
+(v)
+
+// Define a string
+String str = "Hello";
+
+// Extract the character at index 1 using charAt method
+char ch = str.charAt(1);
+
+// Print the character
+System.out.println(ch); // e
+
+

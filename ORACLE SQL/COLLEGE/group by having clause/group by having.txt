@@ -1,0 +1,108 @@
+create table Salesperson(
+Snum number(4) PRIMARY KEY,
+Sname varchar2(10),
+City varchar2(10),
+Comm number(2,2));
+
+
+insert all
+into Salesperson(Snum,Sname,City,Comm) values(1001,'peel','london',.12)
+into Salesperson(Snum,Sname,City,Comm) values(1002,'serees','San Jose',.13)
+into Salesperson(Snum,Sname,City,Comm) values(1003,'motika','london',.11)
+into Salesperson(Snum,Sname,City,Comm) values(1004,'rifkin','barcelona',.15)
+into Salesperson(Snum,Sname,City,Comm) values(1005,'anelrod','new york',.10)
+select * from dual;
+
+
+SELECT constraint_name, constraint_type, table_name
+FROM user_constraints
+WHERE table_name = 'Salesperson';
+
+
+create table Customer(
+Cnum number(4) PRIMARY KEY,
+Cname varchar2(10),
+City varchar2(10), 
+Rating number(3),
+Snum number(4));
+
+insert all
+into Customer(Cnum,Cname,City,Rating,Snum) values(2001,'hoffman','london',100,1001)
+into Customer(Cnum,Cname,City,Rating,Snum) values(2002,'siovanni','rome',200,1003)
+into Customer(Cnum,Cname,City,Rating,Snum) values(2003,'liu','san jose',200,1002)
+into Customer(Cnum,Cname,City,Rating,Snum) values(2004,'siass','berlin',300,1002)
+into Customer(Cnum,Cname,City,Rating,Snum) values(2005,'climens','london',100,1001)
+into Customer(Cnum,Cname,City,Rating,Snum) values(2006,'cineros','san jose',300,1007)
+into Customer(Cnum,Cname,City,Rating,Snum) values(2007,'periera','rome',100,1004)
+select * from dual;
+
+
+
+create table Orders(
+Onum number(4) PRIMARY KEY,
+Amt number(6,2),
+Odate date,
+Cnum number(4),
+Snum number(4));
+
+insert all
+into Orders(Onum,Amt,Odate,Cnum,Snum) values(3001,18.69,'03-oct-90',2008,1007)
+into Orders(Onum,Amt,Odate,Cnum,Snum) values(3003,767.19,'03-oct-90',2001,1001)
+into Orders(Onum,Amt,Odate,Cnum,Snum) values(3002,1900.10,'03-oct-90',2007,1004)
+into Orders(Onum,Amt,Odate,Cnum,Snum) values(3005,5760.45,'03-oct-90',2003,1002)
+into Orders(Onum,Amt,Odate,Cnum,Snum) values(3006,1098.16,'03-oct-90',208,1007)
+into Orders(Onum,Amt,Odate,Cnum,Snum) values(3009,1913.33,'04-oct-90',2002,1003)
+into Orders(Onum,Amt,Odate,Cnum,Snum) values(3007,75.75,'04-oct-90',2004,1002)
+into Orders(Onum,Amt,Odate,Cnum,Snum) values(3008,4723.00,'05-oct-90',2006,1001)
+into Orders(Onum,Amt,Odate,Cnum,Snum) values(3010,1309.95,'06-oct-90',2004,1002)
+into Orders(Onum,Amt,Odate,Cnum,Snum) values(3011,9891.88,'06-oct-90',2006,1001)
+select * from dual;
+
+
+
+1. Find the largest order taken by each salesperson
+select Snum,Max(Amt) from Orders group by Snum;
+
+2. Find the largest order taken by each salesperson on each date
+select Snum,Odate,Max(Amt) from Orders group by Snum,Odate;
+
+3. Find the maximum purchase over $3000 taken by each salesperson on each date
+select Snum,Odate,Max(Amt) from Orders group by Snum,Odate having Max(Amt)>3000;
+
+
+4. Find each salesperson maximum sell on 3rd October
+select Snum,Max(Amt) from Orders where Odate='03-OCT-90' group by Snum;
+
+
+5. Find the largest order from Serees and Rifkin.
+ select Snum,Max(Amt) from Orders group by Snum having Snum in(1002,1007);
+
+6. Count all orders for October 3rd
+select count(*) from Orders where Odate ='03-OCT-90';
+
+7. Count the number of different non null city values from customer table
+select count (distinct City) as "no. of different non-null city" from Customer;
+
+8. Find each customer smallest order
+select Cnum,min(Amt) from Orders group by Cnum;
+
+9. Find the first customer in alphabetical order whose name begin with G
+select min(Cname) from Customers where Cname='G%';
+
+10.Find the highest rating in each city
+select City ,max(Rating) from Customer group by City;
+
+11.Find out which day had highest total amount order
+select Odate, max(sum(Amt)) from Orders group by Odate;
+
+
+
+
+
+
+
+
+
+
+
+

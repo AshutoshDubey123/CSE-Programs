@@ -1,0 +1,1 @@
+/*WAP in java to demonstrate the fact that an interface can be inherited from anothe interface*/

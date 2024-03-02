@@ -1,0 +1,1 @@
+/*Create a nested interface in java and try to implement that interface in some other class*/
