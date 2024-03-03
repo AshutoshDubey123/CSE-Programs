@@ -6,8 +6,7 @@ public static void maxsubarraysum(int numbers[])
     int maxsum=Integer.MIN_VALUE;
     int currentsum=0;
 
-    int start = 0;
-    int ansStart = -1, ansEnd = -1; //will be used for printing the subarray
+    int start = 0, ansStart = -1, ansEnd = -1; //will be used for printing the subarray
 
     for(int i=0;i<numbers.length;i++)
     {  
