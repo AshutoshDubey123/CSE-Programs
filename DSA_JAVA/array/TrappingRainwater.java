@@ -28,6 +28,7 @@ for(int i=0;i<n;i++)
  int waterLevel=Math.min(leftMax[i],rightMax[i]);
  //trapped water=waterlevel-height[i]
  trappedWater+=waterLevel-height[i];//we will go on adding into trappedWater at each iteration to get final trappedWater
+ //right hand is not multiplied by width as it is given that width of each index is 1
 }
 
 return trappedWater;
