@@ -39,3 +39,7 @@ public static void main(String args[])
     System.out.println("Trapped Water: "+trappedRainwater(height));
 }
 }
+
+/*Output
+Trapped Water: 11
+ */
