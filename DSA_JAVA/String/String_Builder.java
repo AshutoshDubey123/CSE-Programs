@@ -8,8 +8,8 @@ public class String_Builder{
         System.out.println(sb);
     }
 }
-/*time complexity= O(n) as no copying of string occurs at each iteration, changes are made to same string 
-at each iteration unlike ImmutableString*/
+/*time complexity= O(n) here O(26) as no copying of string occurs at each iteration, changes are 
+made to same string at each iteration unlike ImmutableString*/
 /*
 output: abcdefghijklmnopqrstuvwxyz
  */
