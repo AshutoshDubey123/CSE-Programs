@@ -11,3 +11,7 @@ public class ImmutableString
     System.out.println(str);
     }
 }
+/*
+ * output:
+ * Tonyabcdefghijklmnopqrstuvwxyz
+ */
