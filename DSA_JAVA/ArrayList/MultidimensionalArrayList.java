@@ -15,7 +15,7 @@ public class MultidimensionalArrayList{
         list2.add(4);
         mainList.add(list2);
 
-        System.out.println(mainList);
+        System.out.println(mainList);//[[1, 2], [3, 4]]
 
 
         /*printing the each list separately as in pattern shown
@@ -28,7 +28,7 @@ public class MultidimensionalArrayList{
                 System.out.print(currentList.get(j)+" ");
 
             }
-            System.out.println();
+            System.out.println();//to separate each ArrayList through new line 
             
         }
       

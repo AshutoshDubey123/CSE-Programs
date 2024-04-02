@@ -25,7 +25,7 @@ public class MultidimensionalArrayListTable{
             for(int j=0;j<currentList.size();j++){
                 System.out.print(currentList.get(j)+" ");
             }
-            System.out.println();
+            System.out.println();//to separate each ArrayList through new line 
         }
 
     }
