@@ -17,6 +17,11 @@ public class MultidimensionalArrayList{
 
         System.out.println(mainList);
 
+
+        /*printing the each list separately as in pattern shown
+        1 2
+        3 4 
+        */
         for(int i=0;i<mainList.size();i++){//accesses mainList
             ArrayList<Integer> currentList= mainList.get(i);//this gives full ith list
             for(int j=0;j<currentList.size();j++){
