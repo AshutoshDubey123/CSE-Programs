@@ -31,13 +31,6 @@ class Solution {
             return false;
         }     
             return (n& (n-1))==0;
-/*while binary operators themselves do not return true or false, the result of their operation can be used in boolean expressions to evaluate conditions.
-example:
-int a = 5;
-int b = 3;
 
-boolean result = (a & b) == 0; // result will be false as the result of the bitwise AND operation is 0
-
-        */
     }
 }
