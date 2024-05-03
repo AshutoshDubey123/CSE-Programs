@@ -44,10 +44,10 @@ class Solution {
     public int hammingWeight(int n) {
         int count=0;
         while(n>0){
-        if((n&1)==1)//check LSB whether it is set(1) or not
+        if((n&1)==1)//check LSB whether it is set(i.e., 1) or not
         count++;     
         
-            n=n>>1;
+            n=n>>1;//at each iteration we left shift n until n doesn't become zero
         
         
         }
