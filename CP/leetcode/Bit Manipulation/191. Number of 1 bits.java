@@ -47,7 +47,7 @@ class Solution {
         if((n&1)==1)//check LSB whether it is set(i.e., 1) or not
         count++;     
         
-            n=n>>1;//at each iteration we left shift n until n doesn't become zero
+            n=n>>1;//at each iteration we right shift n until n doesn't become zero
         
         
         }
