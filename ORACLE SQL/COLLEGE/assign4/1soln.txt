@@ -1,0 +1,60 @@
+create table SAILORS(
+   s_id NUMBER(10,2) PRIMARY KEY,
+   s_name VARCHAR2(20),
+   rating NUMBER(2),
+   age NUMBER(3)
+);
+
+create table BOATS(
+   b_id NUMBER(10,2) PRIMARY KEY,
+   b_name VARCHAR2(20),
+   color VARCHAR2(10)
+);
+
+create table RESERVES(
+   s_id NUMBER(10,2),
+   b_id NUMBER(10,2),
+   day CHAR(10),
+   FOREIGN KEY(s_id) REFERENCES SAILORS(s_id),
+   FOREIGN KEY(b_id) REFERENCES BOATS(b_id),
+   PRIMARY KEY (s_id , b_id)
+);
+
+INSERT ALL
+INTO SAILORS (s_id,s_name,rating,age) VALUES (7859,'Dupesh',5,26)
+INTO SAILORS (s_id,s_name,rating,age) VALUES (7751,'Rohit',6,23)
+INTO SAILORS (s_id,s_name,rating,age) VALUES (7954,'Rahul',2,28)
+INTO SAILORS (s_id,s_name,rating,age) VALUES (7823,'Sagar',7,31)
+INTO SAILORS (s_id,s_name,rating,age) VALUES (7269,'Tarun',9,25)
+INTO SAILORS (s_id,s_name,rating,age) VALUES (7890,'Mrinal',4,22)
+INTO SAILORS (s_id,s_name,rating,age) VALUES (7152,'Sukesh',6,21)
+INTO SAILORS (s_id,s_name,rating,age) VALUES (7863,'Ankan',3,24)
+SELECT 1 FROM DUAL;
+
+INSERT ALL
+INTO BOATS (b_id,b_name,color) VALUES (2536,'The La Santa María','Black')
+INTO BOATS (b_id,b_name,color) VALUES (2489,'C.S.S. Hunley','White')
+INTO BOATS (b_id,b_name,color) VALUES (2641,'C.S.S. Virginia','Cyan')
+INTO BOATS (b_id,b_name,color) VALUES (2322,'U.S.S. Constitution','Orange')
+INTO BOATS (b_id,b_name,color) VALUES (2102,'HMS Victory','green')
+INTO BOATS (b_id,b_name,color) VALUES (2006,'Bismarck','Purple')
+INTO BOATS (b_id,b_name,color) VALUES (2398,'U.S.S. Arizona','Red')
+INTO BOATS (b_id,b_name,color) VALUES (2846,'RMS Titanic','Brown')
+SELECT 1 FROM DUAL;
+
+
+INSERT ALL
+INTO RESERVES (s_id,b_id,day) VALUES (7859,2536,'Monday')
+INTO RESERVES (s_id,b_id,day) VALUES (7751,2846,'Tuesday')
+INTO RESERVES (s_id,b_id,day) VALUES (7954,2398,'Wednesday')
+INTO RESERVES (s_id,b_id,day) VALUES (7823,2006,'Friday')   
+INTO RESERVES (s_id,b_id,day) VALUES (7269,2102,'Sunday')
+INTO RESERVES (s_id,b_id,day) VALUES (7890,2322,'Tuesday')
+INTO RESERVES (s_id,b_id,day) VALUES (7152,2641,'Monday')
+INTO RESERVES (s_id,b_id,day) VALUES (7863,2489,'Thursday')
+SELECT 1 FROM DUAL;
+
+1. SELECT B.color FROM BOATS B INNER JOIN RESERVES R ON B.b_id = R.b_id INNER JOIN SAILORS S ON S.s_id = R.s_id WHERE S.s_name = 'Tarun';
+2. SELECT s.s_id,s.s_name FROM SAILORS s INNER JOIN RESERVES r ON s.s_id = r.s_id WHERE r.day = 'Monday';
+3. SELECT b_id,b_name FROM BOATS WHERE color IN ('Red','green');
+4. DELETE FROM SAILORS WHERE age > 60 ;
