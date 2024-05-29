@@ -1,0 +1,43 @@
+create table Customer(
+     CustomerID NUMBER(2),
+     CustomerName VARCHAR2(20),
+     ContactName VARCHAR2(20),
+     Address VARCHAR2(30),
+     City VARCHAR2(20),
+     PostalCode NUMBER(6),
+     Country VARCHAR2(10)
+);
+
+
+INSERT ALL
+INTO Customer VALUES (1,'Alfreds Futter','Maria Anders','Obere Str.57','Berlin',12209,'Germany')
+INTO Customer VALUES (2,'Ana Helados','Ana Trujillo','Avda.Construction2222','Mexico D.F.',05021,'Mexico')
+INTO Customer VALUES (3,'Antonio Moreno','Antonio Moreno','Mataderos 2312','Mexico D.F.',05023,'Mexico')
+SELECT 1 FROM DUAL;
+
+
+create table Suppliers(
+    SupplierID NUMBER(2),
+    SupplierName VARCHAR2(30),
+    ConactName VARCHAR2(20),
+    Address VARCHAR2(20),
+    City VARCHAR2(20),
+    PostalCode NUMBER(5),
+    Country VARCHAR2(10)
+);
+
+
+INSERT ALL
+INTO Suppliers VALUES (1,'Exotic Liquid','Charlotte Cooper','49 Gilbert St.','Berlin',12209,'Germany')
+INTO Suppliers VALUES (2,'New Orleans Cajun Delights','Shelly Burke','P.O. Box 78934','Mexico D.F.',05023,'Mexico')
+INTO Suppliers VALUES (3,'Grandma Kellys Homestay','Ragina Murphy','707 Oxford Rd.','Anna Arbor',48104,'USa')
+SELECT 1 FROM DUAL;
+
+
+Queries:
+
+a) Select City from (Select City from Customer UNION Select City from Suppliers) MINUS Select City from (Select City from Customer INTERSECT Select City from Suppliers);
+b) Select City from Customer UNION Select City from Suppliers;
+c) Select City from Customer Where Country='Germany' UNION Select City from Suppliers Where Country='Germany';
+d)  Select s.CustomerName , d.SupplierName from Customer s INNER JOIN Suppliers d ON s.PostalCode = d.PostalCode AND s.City=d.City;
+e) Select Country FROM Suppliers MINUS Select Country from Customer;

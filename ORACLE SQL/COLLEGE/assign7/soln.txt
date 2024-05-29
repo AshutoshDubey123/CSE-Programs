@@ -1,0 +1,49 @@
+CREATE TABLE EMP_NEW(
+    EMPNO NUMBER(4) PRIMARY KEY CHECK (EMPNO BETWEEN 7000 AND 8000),
+    ENAME VARCHAR2(10),
+    JOB CHAR(10),
+    MGR NUMBER(4),
+    HIREDATE DATE,
+    SAL NUMBER(10,2),
+    COMM NUMBER(10,2) DEFAULT 0 CHECK (COMM < 1500),
+    DEPT_NAME VARCHAR(50),
+    CONSTRAINT CHECK_JOB CHECK ((JOB = 'Salesman' AND COMM IS NOT NULL) OR (JOB <> 'salesman' AND COMM IS NULL)),
+    FOREIGN KEY(MGR) REFERENCES EMP_NEW(EMPNO)
+);
+
+
+create table location(
+    EMPNO NUMBER(4) PRIMARY KEY,
+    ENAME VARCHAR2(10),
+    LOC VARCHAR2(100)
+);
+
+INSERT All
+INTO location values (7839,'King','San Fransisco')
+INTO location values (7566,'Jones','California')
+INTO location values (7698,'Blake','Dallas')
+INTO location values (7782,'Clark','Boston')
+INTO location values (7788,'Scott','New Jersey')
+INTO location values (7902,'Ford','New Hamshire')
+INTO location values (7499,'Allen','Massachussetts')
+INTO location values (7521,'Ward','Chicago')
+INTO location values (7369,'Smith','Hawaeii')
+SELECT 1 FROM DUAL;
+
+Queries:
+1. select ENAME from EMP_NEW where SAL = (select MAX(SAL) FROM EMP_NEW);
+2. select ENAME from EMP_NEW where SAL=(Select MAX(SAL) from EMP_NEW where JOB='Salesman');
+3. select ENAME from EMP_NEW where SAL=(Select MIN(SAL) from EMP_NEW where JOB='Clerk');
+4. SELECT DEPT_NAME FROM (SELECT DEPT_NAME, AVG(SAL) AS AVG_SAL FROM EMP_NEW GROUP BY DEPT_NAME ORDER BY AVG_SAL DESC) WHERE ROWNUM = 1;
+5. select ENAME from EMP_NEW where SAL > (select SAL from EMP_NEW where ENAME = 'Turner') ;
+6. select ENAME from EMP_NEW where HIREDATE > (select HIREDATE from EMP_NEW where ENAME = 'Allen') ;
+7. select DEPT_NAME from EMP_NEW where ENAME = 'Ford' ;
+8. select DEPT_NAME from EMP_NEW where SAL=(select MAX(SAL) from EMP_NEW) ;
+9. select LOC from location where ENAME = 'Smith' ;
+10. select p.LOC FROM location p LEFT OUTER JOIN EMP_NEW r on p.EMPNO = r.EMPNO WHERE r.JOB = 'Manager' ;
+11. select * from EMP_NEW where ENAME = 'Martin';
+12. select ENAME from EMP_NEW where SAL > (select MAX(SAL) from EMP_NEW where EMPNO = (select EMPNO from location where LOC = 'Dallas'));
+13. select DEPT_NAME from EMP_NEW where ENAME is NULL ;
+14. select ENAME from EMP_NEW where HIREDATE = (select HIREDATE from EMP_NEW where ENAME = 'Adams') AND ENAME <> 'Adams';
+15. select DEPT_NAME from EMP_NEW where COMM IS NOT NULL GROUP BY DEPT_NAME;
+16. SELECT e.EMPNO, e.ENAME, e.SAL, e.DEPT_NAME FROM EMP_NEW e WHERE e.SAL = (SELECT MIN(SAL) FROM EMP_NEW WHERE DEPT_NAME = e.DEPT_NAME)ORDER BY e.DEPT_NAME, e.ENAME;
