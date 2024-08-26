@@ -18,7 +18,7 @@ public static void main(String args[])
     update(marks,nonchangeable);//main being static can only call static method, that is why update method is made static
 
     System.out.println(nonchangeable);//non-array variable so pass by value works 
-    //here and remains unchanged after result from call comes
+    //here and remains unchanged after result from call comes, pass by reference works only on object or array variables
     for(int i=0;i<marks.length;i++)
     {
         System.out.print(marks[i]+" ");
