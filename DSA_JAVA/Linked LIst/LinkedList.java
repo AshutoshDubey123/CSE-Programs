@@ -10,14 +10,13 @@ public class LinkedList{
         }
     }
 
-    /*special static variable of type Node(head and tail) in linked list to track elements in linked list,used to maintain 
+    /*special static variable of type Node(head) in linked list to track elements in linked list,used to maintain 
     a reference(points to a location in memory where an object is stored) to the beginning 
-    and end of the linked list, respectively. By declaring them as static variables, they become shared across 
-    all instances of the class. This means that all instances of the class share the same head and tail values, 
+    of the linked list. By declaring it as static variable, it become shared across 
+    all instances of the class. This means that all instances of the class share the same head value, 
     which can be useful for managing a single linked list across different parts of your program.
 */
     public static  Node head;
-    public static  Node tail;
     public static int size;//java automatically initializes size variable to zero.
     //size is being kept static as if nodes are added or deleted same 'size' gets ++ or --  
 
@@ -32,7 +31,7 @@ public class LinkedList{
         size++;//no sooner a new node is created size of ll increased by 1
 
         if(head==null){//base case,no node present linked list empty
-            head=tail=new_Node;
+            head=new_Node;
             return;
         }
         //step2: Make next of new Node as head 
@@ -45,24 +44,21 @@ public class LinkedList{
         Node new_Node=new Node(new_Data);
         size++;
         if(head==null){
-            head=tail=new_Node;
+            head=new_Node;
             return;
         }
-        tail.next=new_Node;
-        tail=new_Node;
+        // Store the head reference in a temporary variable
+        Node last = head;
 
-    }
-    public void print(){
-        if(head==null){
-            System.out.println("LL is empty");
-            return;
+        // Traverse till the last node
+        while (last.next != null) {
+            last = last.next;
         }
-        Node temp=head; //temp is temporary variable of type Node
-        while(temp!=null){
-            System.out.print(temp.data+"->");
-            temp=temp.next;
-        }
-        System.out.println("null");
+
+        // Change the next pointer of the
+        // last node to point to the new node
+        last.next = new_Node;
+
     }
     public void AddAtIndex(int index,int new_Data){
         if (index==0){
@@ -85,6 +81,23 @@ public class LinkedList{
         temp.next=new_Node;
 
     }
+
+
+    public void print(){
+        if(head==null){
+            System.out.println("LL is empty");
+            return;
+        }
+        Node temp=head; //temp is temporary variable of type Node
+        while(temp!=null){
+            System.out.print(temp.data+"->");
+            temp=temp.next;
+        }
+        System.out.println("null");
+    }
+
+
+    
     public int removeFirst(){//return type int to return node value/data removed.we aren't printing returned value but 
                             //it may be used as required
         if(size==0){
@@ -93,7 +106,7 @@ public class LinkedList{
         }
         else if(size==1){
             int val=head.data;
-            head=tail=null;
+            head=null;
             size=0;
             return val;
         }
@@ -109,22 +122,23 @@ public class LinkedList{
         }
         else if (size==1){
             int val=head.data;
-            head=tail=null;//variable head and tail pointing to nothing 
-            //therefor will removed from memory by automatic garbage collector
+            head=null;//variable head pointing to nothing 
+            //therefore will removed from memory by automatic garbage collector
             //in C you had  to yourself clear the memory
             size=0;
             return val;
         }
         //Without maintaining a reference to the second last node , 
         //it's not possible to remove the last node without traversing the list from the beginning
-        //this is not array that you'll use tail-1, nodes are connected through links and nodes are allocated memory non-contiguously
-        Node temp=head;
-        while(temp.next!=tail){
-            temp=temp.next;
+        //nodes are connected through links and nodes are allocated memory non-contiguously (this is not array) 
+        // Find the second last node
+        Node secondLast = head;
+        while (secondLast.next.next != null) {
+            secondLast = secondLast.next;
         }
-        int val=temp.next.data;//or  int val=tail.data;
-        temp.next=null;
-        tail=temp;
+        int val=secondLast.next.data;
+        // Delete the last node
+        secondLast.next = null;
         size--;
         return val;
     }
@@ -210,7 +224,11 @@ public class LinkedList{
         System.out.println(ll.size);//5
 
         System.out.println(ll.iterativeSearch(7));//4
-        System.out.println(ll.iterativeSearch(10));//-1
+        System.out.println(ll.iterativeSearch(10));//-1    
+        
+    }
+}
+
 /*
 1->2->3->4->5->null
 5
@@ -225,9 +243,3 @@ public class LinkedList{
 4
 -1
 */
-
-
-        
-        
-    }
-}
