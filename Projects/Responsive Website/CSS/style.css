@@ -1,0 +1,98 @@
+*{
+    margin:  0;
+    padding: 0;
+    
+}
+/* the * selector is a universal selector that targets every element in the html document. */
+
+.logo{
+    width:20%;
+    display: flex; 
+    justify-content: center;
+    align-content: center;
+    /*justify-content: center: Centers items on the main axis (usually horizontal).
+    align-content: center: Centers the block of lines on the cross axis (usually vertical) but only affects multi-line layouts.*/
+}
+.logo img{
+    width:50%;
+    border: 3px solid white;
+    border-radius: 20px;
+}
+.navbar{
+    display: flex;
+    /*By default, flex items will be arranged in a row (horizontally) 
+    and will adjust their size and position based on the container's size, space distribution, and other flexbox properties.*/
+}
+.nav-list{
+    width: 50%;
+    display: flex;
+    align-items: center;
+
+}
+
+.nav-list li{
+    list-style: none; /*removes dotes or numbers generated due to list element*/
+    padding: 26px 30px;/*top and bottom padding are 26px right and left padding are 30px*/
+    
+
+}
+.nav-list li a/*the style to be applied to a which is inside li and li is inside nav-list*/
+{
+    text-decoration-line: none; /*underline in list element goes away*/
+    color: white;
+}
+.nav-list li a:hover/*the style to be applied to a which is inside li and li is inside nav-list*/
+{
+    color: grey;
+}
+.rightNav{
+    width: 50%;
+    text-align: right;
+}
+#search{
+    padding: 5px;
+    font-size: 17px;
+    border: 2px solid grey;
+    border-radius: 9px;
+}
+
+.background /* background is a class*/
+{
+    background: rgba(0,0,0,0.7) url(../img/bg.jpg);
+    background-size: cover;
+    background-blend-mode: darken;
+
+
+}
+.firstSection{
+    height: 100vh;
+    /*vh	Relative to 1% of the height of the viewport.
+            Viewport = the browser window size. 
+            If the viewport is 50cm wide, 1vw = 0.5cm.*/
+}
+.box-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 50%;
+    margin: auto;/* the CSS property margin: auto; is used to center an element horizontally within its parent container.*/
+}
+.firstHalf{
+width: 80%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+
+}
+.secondHalf{
+width: 30%;
+}
+.secondHalf img{
+    width: 70%;
+    border: 4px solid white;
+    border-radius: 250px;
+    display: block;
+    margin: auto;
+    }
